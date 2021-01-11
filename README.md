@@ -1,10 +1,10 @@
-## MuSig (*placeholder*) Paxos
+# MuSig (*placeholder*) Paxos
 
 MuSig (Multi Signature) paxos is an exponentially scalable decentralized paxos algorithm with byzantine fault tolerance. Scalability of this protocol comes from an underlying aggregatable multi signature scheme called MuSig.
 
 Note: MuSig multi signature scheme is still experimental.
 
-### State machine and events
+## State machine and events
 
 Like any other paxos algorithm MuSig is a transaction handler. Hence a state machine or an event handler is not directly part of MuSig. A state machine (for example a database) can be configured with transactions from MuSig as an event source.
 
@@ -13,11 +13,11 @@ Like any other paxos algorithm MuSig is a transaction handler. Hence a state mac
 |                   | --> |                   | --> |                  | --> |                   |
 | Create document 1 |     | Update document 1 |     | Patch document 1 |     | Delete document 1 |
 
-### Protocol
+## Protocol
 
 Primarily MuSig orders transactions. It works in 2 phases and an optional 3rd phase which ensures byzantine fault tolerance. MuSig has 2 kinds of nodes, signers and peers. Signers sign transactions and collectively decide the order of transactions. Signers are like the acceptors and peers are like learners in the basic paxos algorithm. MuSig uses a balanced binary tree network topology of signers where nodes are positioned in the tree pseudo randomly.
 
-#### Phase 1a (top-down)
+### Phase 1a (top-down)
 
 <img align="left" width="30%" src="https://lh5.googleusercontent.com/V3IvAtoqdyJvz80v1Xm6JG1yfKxPCNlkCTKH92XpWvLit9zqgHp2_LbzVV7r9LIH62SZSw2D6IAnkV49ljSv_FQROUzK4pYsrbJHPW39Ng6TdK7bUk6stvAQECG0Eg5jwrZGrKXT"> A client will initiate a transaction by sending it to a signer. Signer then generates a deterministic tree of signers from the transaction id or fingerprint. Then it will do a pre-consensus check and will pass the transaction to its children. It also stores the local arrival order of the transaction.
 
@@ -27,7 +27,7 @@ Even though a client can arbitrarily pick any signer to initiate a transaction, 
 
 Every signer uses the same algorithm and seed to generate the pseudo random tree so that everybody gets the same tree for the same transaction. Seed could be the transaction id or a transaction fingerprint. It is also possible to determine the tree based on geographical location of signers for better network performance.
 
-#### Phase 1b (bottom-up)
+### Phase 1b (bottom-up)
 
 <img align="left" width="30%" src="https://lh5.googleusercontent.com/kXlrPbos0UtlNQ-SOzfr1o6z5K7uQgkUC3BHOIVXOL2EDlqTnIsxmQVce-XB6xEgirt3Rdx6WYWv-YSsT79GeE5cjL2CBbmk4iScmaxnlNM8r-q0RY3OmoZ8jA1vicgS6z-ig3J3">
 
@@ -42,7 +42,7 @@ combinedOrder = combine(local order, orders from children)
 send(parent, {aggregatedSignature, combinedOrder})
 ```
 
-#### Phase 2 (top-down)
+### Phase 2 (top-down)
 
 <img align="left" width="30%" src="https://lh4.googleusercontent.com/nPZ0zk_RZllSWNO6QJzXUtGiAjPWJzIF6TWnPX9LXSyRgucrTrZ1GGUeKCow2yKe4jCOUS-xoubgB_LQn-cmFywWrbBiPw1No5pgBEhCV3Yk2C1eBd_y0qe7jCaQg-v5tUDV7p5o">
 
@@ -52,7 +52,7 @@ Signers will also calculate an ordering score. If this score fails to pass a thr
 
 <br/><br/><br/>
 
-#### Phase 3a (optional, bottom-up)
+### Phase 3a (optional, bottom-up)
 
 <img align="left" width="30%" src="https://lh5.googleusercontent.com/_1RIj6_tsJwIsV1LIJnKcxzDP9GUo2AUxrO8W-KJ-GreR1I3LTQkzeAsrDg1uhf29xNnCg0gwt01YACV11ZcCbeRJlhME5eDuUn5MZ-GV6Tr-McA1y2Oml74pl-HO239KIT0P5F4">
 
@@ -64,7 +64,7 @@ The transaction order which the majority of signers voted for is the global orde
 
 Signers sign the global order if the ordering score is below threshold and will be sent to their parents.
 
-#### Phase 3b (optional, top-down)
+### Phase 3b (optional, top-down)
 
 <img align="left" width="30%" src="https://lh3.googleusercontent.com/kqbUnK3x5duvufaUCCuCE2CtVi6GEADqrozqdmrjlB_QhDRhYTAqRbCKCcxoKn1T_DOVuXrt8E8eOAzO2TXvjB8kz6Nk6D_gCw0AqS2LKWhwxqv9CjiU73iZDmga22HpkzcW_h0E">
 
@@ -76,7 +76,7 @@ Once the signer receives an accepted global order of transaction, it can update 
 
 <br/>
 
-### Ordering transactions
+## Ordering transactions
 
 <img width="70%" src="https://lh5.googleusercontent.com/ZZVi840BemgbfGPcTKXOgwUKP7tfrrq06RMXCbN1HOzBOtw7_K6ssqQxt9UmZ99K3e-PIbu4C3KwH2Lw4n5teaBZTa6UNTChcfy-oRNpL4SoWcvUHlR-S6rRoIok0oQ00iSJ121c">
 
@@ -90,29 +90,29 @@ All transactions are sorted based on these comparisons. Before comparing 2 trans
 
 Ordering score of a transaction is its number of votes below with respect to the immediate next transaction. In other words, it’s the percentage length of the line below the next line.
 
-### Concurrency via dependency
+## Concurrency via dependency
 
 > ToDo
 
-### MuSig Multi Signature
+## MuSig Multi Signature
 
 An experimental aggregatable multi signature is the novelty part of MuSig paxos which makes the exponential scaling possible.
 
 > ToDo
 
-### Fault tolerance
+## Fault tolerance
 
 We can classify faults as Byzantine and non Byzantine faults.
 
 > ToDo
 
-#### Non Byzantine faults
+### Non Byzantine faults
 
 These are the unintentional faults of a node like going offline.
 
 > ToDo
 
-#### Byzantine faults
+### Byzantine faults
 
 These are the intentional faults by a node like double spending.
 
