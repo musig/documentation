@@ -50,6 +50,8 @@ Root signer collects and aggregates all signatures and arrival orders. It then s
 
 Signers will also calculate an ordering score. If this score fails to pass a threshold, a byzentine fault is possible and phase 3 is necessary to prevent it.
 
+<p>&nbsp;</p>
+
 ## Phase 3a (optional, bottom-up)
 
 <img align="left" width="250px" src="https://lh5.googleusercontent.com/_1RIj6_tsJwIsV1LIJnKcxzDP9GUo2AUxrO8W-KJ-GreR1I3LTQkzeAsrDg1uhf29xNnCg0gwt01YACV11ZcCbeRJlhME5eDuUn5MZ-GV6Tr-McA1y2Oml74pl-HO239KIT0P5F4">
@@ -71,6 +73,8 @@ Root signer collects and aggregates all global order signatures and sends it bac
 Ad-hoc solutions can be implemented to remove malicious signers from the network. Presently no such techniques are directly included in MuSig.
 
 Once the signer receives an accepted global order of transaction, it can update its local state machine. Signers then broadcast this transaction to peers.  
+
+<br/>
 
 ## Ordering transactions
 
