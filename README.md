@@ -74,7 +74,7 @@ Ad-hoc solutions can be implemented to remove malicious signers from the network
 
 Once the signer receives an accepted global order of transaction, it can update its local state machine. Signers then broadcast this transaction to peers.  
 
-<p>&nbsp;</p>
+<br/>
 
 ## Ordering transactions
 
