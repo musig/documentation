@@ -90,13 +90,19 @@ All transactions are sorted based on these comparisons. Before comparing 2 trans
 
 Ordering score of a transaction is its number of votes below with respect to the immediate next transaction. In other words, it’s the percentage length of the line below the next line.
 
-## Concurrency via dependency
+## Concurrency and dependency
 
-> ToDo
+Defining dependency is optional. But it is the key for scalability. In basic paxos all transactions fight for a slot which causes bottlenecks. Infact independent transactions can be processed concurrently.
+
+For example Alice wants to transfer some money to Bob. At the same time Carol also wants to make a transfer to Charlie. Since all of them have different accounts, these two transactions are independent and can be processed concurrently. On the other hand, if Alice wants to make a transfer to Bob and Bob wants to make a transfer to Carol then Bob’s account is a dependency and these transactions cannot be done concurrently.
+
+When a client initializes a transaction, it can also send a list of dependencies to the signer. For example in a payment system like above, the account numbers can be the dependencies. In a database CRUD operation, document ids can be dependencies.
+
+MuSig orders dependent transactions as a group. Independent groups will be processed concurrently.
 
 ## MuSig Multi Signature
 
-An experimental aggregatable multi signature is the novelty part of MuSig paxos which makes the exponential scaling possible.
+An experimental aggregatable multi signature is the novelty in MuSig paxos which makes the exponential scaling possible.
 
 > ToDo
 
