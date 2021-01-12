@@ -6,7 +6,7 @@ Note: MuSig multi signature scheme is still experimental.
 
 ## State machine and events
 
-Like any other paxos algorithm MuSig is a transaction handler. Hence a state machine or an event handler is not directly part of MuSig. A state machine (for example a database) can be configured with transactions from MuSig as an event source.
+Like any other paxos algorithm MuSig is a transaction handler. Hence a state machine or an event handler is not directly part of MuSig. A state machine (for example a database) can be integrated with MuSig. Transactions from MuSig can be configured as events to the state machine. There are state machines internal to the protocol.
 
 | Transaction-T1    |     | Transaction-T2    |     | Transaction-T3   |     | Transaction-T4    |
 | ----------------- | --- | ----------------- | --- | ---------------- | --- | ----------------- |
@@ -15,7 +15,7 @@ Like any other paxos algorithm MuSig is a transaction handler. Hence a state mac
 
 ## Protocol
 
-Primarily MuSig orders transactions. It works in 2 phases and an optional 3rd phase which ensures byzantine fault tolerance. MuSig has 2 kinds of nodes, signers and peers. Signers sign transactions and collectively decide the order of transactions. Signers are like the acceptors and peers are like learners in the basic paxos algorithm. MuSig uses a balanced binary tree network topology of signers where nodes are positioned in the tree pseudo randomly.
+Primarily MuSig is a protocol for collectively deciding the order of incoming transactions. It works in 2 phases and an optional 3rd phase which ensures byzantine fault tolerance. MuSig has 2 kinds of nodes, signers and peers. Signers sign transactions and collectively decide the order of transactions. Signers are like the acceptors and peers are like learners in the basic paxos algorithm. MuSig uses a balanced binary tree network topology of signers where nodes are positioned in the tree pseudo randomly.
 
 ## Phase 1a (top-down)
 
