@@ -6,7 +6,7 @@ Note: MuSig multi signature scheme is still experimental.
 
 ## State machine and events
 
-Like any other paxos algorithm MuSig is a transaction handler. Hence a state machine or an event handler is not directly part of MuSig. A state machine (for example a database) can be integrated with MuSig. Transactions from MuSig can be configured as events to the state machine. Though there are state machines internal to the protocol.
+Like any other paxos algorithm MuSig is a transaction handler. Hence a state machine or an event handler is not directly part of MuSig. A state machine (for example a database) can be integrated with MuSig. Transactions from MuSig can be configured as events to the state machine. There are state machines internal to the protocol.
 
 | Transaction-T1    |     | Transaction-T2    |     | Transaction-T3   |     | Transaction-T4    |
 | ----------------- | --- | ----------------- | --- | ---------------- | --- | ----------------- |
