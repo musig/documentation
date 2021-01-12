@@ -27,6 +27,8 @@ Even though a client can arbitrarily pick any signer to initiate a transaction, 
 
 Every signer uses the same algorithm and seed to generate the pseudo random tree so that everybody gets the same tree for the same transaction. Seed could be the transaction id or a transaction fingerprint. It is also possible to determine the tree based on geographical location of signers for better network performance.
 
+<p>&nbsp;</p>
+
 ## Phase 1b (bottom-up)
 
 <img align="left" width="250px" src="https://lh5.googleusercontent.com/kXlrPbos0UtlNQ-SOzfr1o6z5K7uQgkUC3BHOIVXOL2EDlqTnIsxmQVce-XB6xEgirt3Rdx6WYWv-YSsT79GeE5cjL2CBbmk4iScmaxnlNM8r-q0RY3OmoZ8jA1vicgS6z-ig3J3">
@@ -35,12 +37,15 @@ In this half of the phase, a signer first collects signatures from its children.
 
 A signature is a single collective signature for both the transaction and its order. With signature, a signer also sends a combined order of transaction to its parent. This is a combined set of the orders from its children and its local order.
 
+<p>&nbsp;</p>
+
 ```
 localSignature = sign(transaction, local order)
 aggregatedSignature = aggregate(localSignature, signatures from children)
 combinedOrder = combine(local order, orders from children)
 send(parent, {aggregatedSignature, combinedOrder})
 ```
+<p>&nbsp;</p>
 
 ## Phase 2 (top-down)
 
@@ -64,6 +69,8 @@ The transaction order which the majority of signers voted for is the global orde
 
 Signers sign the global order if the ordering score is below threshold and will be sent to their parents.
 
+<p>&nbsp;</p>
+
 ## Phase 3b (optional, top-down)
 
 <img align="left" width="250px" src="https://lh3.googleusercontent.com/kqbUnK3x5duvufaUCCuCE2CtVi6GEADqrozqdmrjlB_QhDRhYTAqRbCKCcxoKn1T_DOVuXrt8E8eOAzO2TXvjB8kz6Nk6D_gCw0AqS2LKWhwxqv9CjiU73iZDmga22HpkzcW_h0E">
@@ -74,7 +81,7 @@ Ad-hoc solutions can be implemented to remove malicious signers from the network
 
 Once the signer receives an accepted global order of transaction, it can update its local state machine. Signers then broadcast this transaction to peers.  
 
-<br/>
+<p>&nbsp;</p>
 
 ## Ordering transactions
 
